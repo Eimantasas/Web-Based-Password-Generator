@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Gen</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="text-center p-4 bg-white rounded shadow-md">
+        <h1 class="text-2xl p-3">Password Generator</h1>
+        <div>
+            <form action="/" method="post">
+                <div>
+                    <label for="quantity">Password length (between 8 and 20):</label> <br>
+                    <input type="number" id="length" name="length" min="8" max="20" class="size-10 bg-blue-400 text-white rounded-xl text-center" value="8">
+                </div>
+                <div class="pb-5">
+                    <input type="checkbox" id="lowercase" name="lowercase" value="includelower">
+                    <label for="lowercase">Include lowercase letters?</label><br>
+                    <input type="checkbox" id="uppercase" name="uppercase" value="includeupper">
+                    <label for="lowercase">Include uppercase letters?</label><br>
+                    <input type="checkbox" id="numbers" name="numbers" value="includenumbers">
+                    <label for="lowercase">Include numbers?</label><br>
+                    <input type="checkbox" id="symbols" name="symbols" value="includesymbols">
+                    <label for="lowercase">Include symbols?</label><br>
+                </div>
+                <input  type="submit" name="generate_button" value="Generate" class="rounded bg-blue-400 text-white p-5">
+            </form>
+        </div>
+        <div class="p-5">
+            <p>Your random generated password is: <br> {{randpass}}</p>
+        </div>
+        <form action="/" method="post">
+            <input type="hidden" name="password_value" value="{{ randpass }}">
+            <input type="submit" name="save_button" value="Save" class="rounded bg-blue-400 text-white p-5">
+        </form>
+        <div class="p-5 text-red-900">
+            <p>{{errormessage}}</p>
+        </div>
+    </div>
+    <div class="text-center p-4 bg-white rounded shadow-md w-1/2">
+        <h2 class="text-lg font-semibold mb-2">Saved Passwords:</h2>
+        <ul class="list-disc text-left">
+            {% for password in passwords %}
+                <li class="p-1 border-b">{{ password.value }}</li>
+            {% endfor %}
+        <form action="/" method="post">
+            <input type="submit" name="clear_button" value="Clear Saved Passwords" class="rounded bg-blue-400 text-white p-5">
+        </form>
+        </ul>
+    </div>
+</body>
+</html>
